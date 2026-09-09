@@ -4,21 +4,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-let UserService = class UserService {
-    getHello() {
-        return 'Hello from user';
-    }
-    checkExpection() {
-        throw new HttpException('Not found', HttpStatus.NOT_FOUND);
-    }
-    createUser(userData) {
-        console.log(userData);
-        return "data saved sucessfully";
+import { Injectable } from '@nestjs/common';
+let CustomValidationPipe = class CustomValidationPipe {
+    transform(value, metadata) {
+        console.log(value);
+        return value;
     }
 };
-UserService = __decorate([
+CustomValidationPipe = __decorate([
     Injectable()
-], UserService);
-export { UserService };
-//# sourceMappingURL=user.service.js.map
+], CustomValidationPipe);
+export { CustomValidationPipe };
+//# sourceMappingURL=validationLog.pipe.js.map
