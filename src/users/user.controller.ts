@@ -2,12 +2,14 @@ import { Body, Controller, Get, Param, Post, ValidationPipe } from '@nestjs/comm
 import { UserService } from './user.service.js';
 import { CustomValidationPipe } from './validations/validationLog.pipe.js';
 import { createUser } from './dto/create-user.dto.js';
+import { role } from './guards/role.decorator.js';
 
 @Controller('user')
 export class UserController {
   constructor(private userService:UserService){}
 
   @Get()
+  @role(["user"])
   getHello(): string {
     return this.userService.getHello();
   }

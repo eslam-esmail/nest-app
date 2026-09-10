@@ -14,6 +14,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service.js';
 import { CustomValidationPipe } from './validations/validationLog.pipe.js';
 import { createUser } from './dto/create-user.dto.js';
+import { role } from './guards/role.decorator.js';
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -34,6 +35,7 @@ let UserController = class UserController {
 };
 __decorate([
     Get(),
+    role(["user"]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)

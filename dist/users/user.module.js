@@ -7,13 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller.js';
 import { UserService } from './user.service.js';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guards/roles.guard.js';
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
     Module({
         imports: [],
         controllers: [UserController],
-        providers: [UserService],
+        providers: [
+            {
+                provide: APP_GUARD,
+                useClass: RolesGuard
+            },
+            UserService
+        ],
     })
 ], UserModule);
 export { UserModule };
