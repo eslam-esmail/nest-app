@@ -5,11 +5,17 @@ import { AppService } from "./app.service.js";
 import { UserModule } from "./users/user.module.js";
 import { LoggerMiddleware } from "./users/logger.middleware.js";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { MongooseModule } from "@nestjs/mongoose";
+import { CatModule } from "./cats/cat.module.js";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // no need to re-import ConfigModule elsewhere
+    }),
     // Distributed tracing, auto-correlated logs, request/job metrics, error
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com
     ObserveModule.forRoot({
@@ -27,7 +33,14 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       entities: ["dist/**/*.entity.js"],
       synchronize: true,
     }),
+    MongooseModule.forRootAsync({
+        inject: [ConfigService],
+        useFactory: (config: ConfigService) => ({
+        uri: config.get<string>("MONGO_URI"),
+      }),
+    }),
     UserModule,
+    CatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

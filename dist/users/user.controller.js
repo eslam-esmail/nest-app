@@ -10,11 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service.js';
 import { CustomValidationPipe } from './validations/validationLog.pipe.js';
 import { createUser } from './dto/create-user.dto.js';
 import { role } from './guards/role.decorator.js';
+import { updateUser } from './dto/update-user.dto.js';
 let UserController = class UserController {
     userService;
     constructor(userService) {
@@ -31,6 +32,12 @@ let UserController = class UserController {
     }
     create(userData) {
         return this.userService.createUser(userData);
+    }
+    update(id, userData) {
+        return this.userService.updateUser(id, userData);
+    }
+    delete(id) {
+        return this.userService.deleteUser(id);
     }
 };
 __decorate([
@@ -60,6 +67,21 @@ __decorate([
     __metadata("design:paramtypes", [createUser]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "create", null);
+__decorate([
+    Put(':id'),
+    __param(0, Param('id', CustomValidationPipe)),
+    __param(1, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, updateUser]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "update", null);
+__decorate([
+    Delete(':id'),
+    __param(0, Param('id', CustomValidationPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "delete", null);
 UserController = __decorate([
     Controller('user'),
     __metadata("design:paramtypes", [UserService])

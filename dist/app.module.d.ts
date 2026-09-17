@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, NestModule } from '@nestjs/common';
+import { MiddlewareConsumer, NestModule } from "@nestjs/common";
 export declare const ObserveModule: {
     new (httpAdapterHost: import("@nestjs/core").HttpAdapterHost, asyncLocalStorage: import("async_hooks").AsyncLocalStorage<Map<string, any>>, options: import("@nestjs/observe").ObserveModuleOptionsWithDefaults): {
         readonly logger: import("@nestjs/common").Logger;
